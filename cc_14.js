@@ -78,3 +78,53 @@ ticketContainer.addEventListener("click", (event) => {
     }
 });
 
+////TASK 5
+// Function to enable inline editing
+function enableInlineEditing(ticket) {
+    const nameHeading = ticket.querySelector("h2");
+    const issuePara = ticket.querySelector("p");
+    const priorityLabel = ticket.querySelector(".priority");
+
+    // Store the original content
+    const originalName = nameHeading.textContent;
+    const originalIssue = issuePara.textContent;
+    const originalPriority = priorityLabel.textContent.replace("Priority: ", "");
+
+    // Replace static content with input fields
+    nameHeading.innerHTML = `<input type="text" value="${originalName}" />`;
+    issuePara.innerHTML = `<input type="text" value="${originalIssue}" />`;
+    priorityLabel.innerHTML = `
+        <select>
+            <option value="High" ${originalPriority === "High" ? "selected" : ""}>High</option>
+            <option value="Medium" ${originalPriority === "Medium" ? "selected" : ""}>Medium</option>
+            <option value="Low" ${originalPriority === "Low" ? "selected" : ""}>Low</option>
+        </select>
+    `;
+
+    // Add a save button
+    const saveButton = document.createElement("button");
+    saveButton.textContent = "Save";
+    saveButton.addEventListener("click", () => {
+        // Update the ticket with the new values
+        const newName = nameHeading.querySelector("input").value;
+        const newIssue = issuePara.querySelector("input").value;
+        const newPriority = priorityLabel.querySelector("select").value;
+
+        nameHeading.textContent = newName;
+        issuePara.textContent = newIssue;
+        priorityLabel.textContent = `Priority: ${newPriority}`;
+
+        // Remove the save button
+        saveButton.remove();
+    });
+
+    ticket.appendChild(saveButton);
+}
+
+// Add double-click event listener to support tickets
+ticketContainer.addEventListener("dblclick", (event) => {
+    const ticket = event.target.closest(".ticket");
+    if (ticket) {
+        enableInlineEditing(ticket);
+    }
+});
