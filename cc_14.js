@@ -39,3 +39,21 @@ createSupportTicket("Alice Johnson", "Website loading slowly.", "Low");
 createSupportTicket("John Doe2", "Unable to log in to the system.", "High");
 
 
+///TASK3
+// Function to highlight high-priority tickets
+function highlightHighPriorityTickets() {
+    // Select all high-priority tickets
+    const highPriorityTickets = document.querySelectorAll('.ticket[data-priority="high"]');
+
+    // Convert NodeList to an array
+    const ticketsArray = Array.from(highPriorityTickets);
+
+    // Apply a style update to each high-priority ticket
+    ticketsArray.forEach((ticket) => {
+        ticket.style.backgroundColor = "#ffcccc"; // Light red background
+        ticket.style.border = "2px solid #ff0000"; // Red border
+    });
+}
+
+// Call the function to highlight high-priority tickets
+highlightHighPriorityTickets();
