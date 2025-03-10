@@ -57,3 +57,24 @@ function highlightHighPriorityTickets() {
 
 // Call the function to highlight high-priority tickets
 highlightHighPriorityTickets();
+
+
+///TASK4
+// Add event listener to the ticket container for event bubbling
+const ticketContainer = document.getElementById("ticketContainer");
+
+ticketContainer.addEventListener("click", (event) => {
+    if (event.target.tagName === "BUTTON") {
+        // If the clicked element is a button, remove the ticket
+        const ticket = event.target.closest(".ticket");
+        if (ticket) {
+            ticket.remove();
+        }
+        // Stop event bubbling
+        event.stopPropagation();
+    } else {
+        // Log a message when any ticket is clicked
+        console.log("Ticket clicked!");
+    }
+});
+
